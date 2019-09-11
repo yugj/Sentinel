@@ -15,7 +15,7 @@
  */
 package com.alibaba.csp.sentinel.dashboard.rule.zookeeper;
 
-import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.GatewayFlowRuleEntity;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;
 import com.alibaba.csp.sentinel.datasource.Converter;
 import com.alibaba.csp.sentinel.util.AssertUtil;
@@ -29,15 +29,15 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Component("flowRuleZookeeperPublisher")
-public class FlowRuleZookeeperPublisher implements DynamicRulePublisher<List<FlowRuleEntity>> {
+@Component("gatewayFlowRuleZookeeperPublisher")
+public class GatewayFlowRuleZookeeperPublisher implements DynamicRulePublisher<List<GatewayFlowRuleEntity>> {
     @Autowired
     private CuratorFramework zkClient;
-    @Resource(name = "flowRuleEntityEncoder")
-    private Converter<List<FlowRuleEntity>, String> converter;
+    @Resource(name = "gatewayFlowRuleEntityEncoder")
+    private Converter<List<GatewayFlowRuleEntity>, String> converter;
 
     @Override
-    public void publish(String app, List<FlowRuleEntity> rules) throws Exception {
+    public void publish(String app, List<GatewayFlowRuleEntity> rules) throws Exception {
         AssertUtil.notEmpty(app, "app name cannot be empty");
 
         String path = ZookeeperConfigUtil.getPath(app);

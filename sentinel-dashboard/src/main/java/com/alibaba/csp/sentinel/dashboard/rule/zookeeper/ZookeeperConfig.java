@@ -15,6 +15,7 @@
  */
 package com.alibaba.csp.sentinel.dashboard.rule.zookeeper;
 
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.GatewayFlowRuleEntity;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
 import com.alibaba.csp.sentinel.datasource.Converter;
 import com.alibaba.fastjson.JSON;
@@ -33,14 +34,24 @@ public class ZookeeperConfig {
     @Value("${rule.repository.zookeeper.nodes}")
     private String zkNodes;
 
-    @Bean
+    @Bean(name = "flowRuleEntityEncoder")
     public Converter<List<FlowRuleEntity>, String> flowRuleEntityEncoder() {
         return JSON::toJSONString;
     }
 
-    @Bean
+    @Bean(name = "gatewayFlowRuleEntityEncoder")
+    public Converter<List<GatewayFlowRuleEntity>, String> gatewayFlowRuleEntityEncoder() {
+        return JSON::toJSONString;
+    }
+
+    @Bean(name = "flowRuleEntityDecoder")
     public Converter<String, List<FlowRuleEntity>> flowRuleEntityDecoder() {
         return s -> JSON.parseArray(s, FlowRuleEntity.class);
+    }
+
+    @Bean(name = "gatewayFlowRuleEntityDecoder")
+    public Converter<String, List<GatewayFlowRuleEntity>> gatewayFlowRuleEntityDecoder() {
+        return s -> JSON.parseArray(s, GatewayFlowRuleEntity.class);
     }
 
     @Bean

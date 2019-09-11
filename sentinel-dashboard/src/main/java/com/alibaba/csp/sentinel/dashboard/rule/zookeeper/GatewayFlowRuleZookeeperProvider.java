@@ -15,7 +15,7 @@
  */
 package com.alibaba.csp.sentinel.dashboard.rule.zookeeper;
 
-import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.GatewayFlowRuleEntity;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;
 import com.alibaba.csp.sentinel.datasource.Converter;
 import org.apache.curator.framework.CuratorFramework;
@@ -26,16 +26,16 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component("flowRuleZookeeperProvider")
-public class FlowRuleZookeeperProvider implements DynamicRuleProvider<List<FlowRuleEntity>> {
+@Component("gatewayFlowRuleZookeeperProvider")
+public class GatewayFlowRuleZookeeperProvider implements DynamicRuleProvider<List<GatewayFlowRuleEntity>> {
 
     @Autowired
     private CuratorFramework zkClient;
-    @Resource(name = "flowRuleEntityDecoder")
-    private Converter<String, List<FlowRuleEntity>> converter;
+    @Resource(name = "gatewayFlowRuleEntityDecoder")
+    private Converter<String, List<GatewayFlowRuleEntity>> converter;
 
     @Override
-    public List<FlowRuleEntity> getRules(String appName) throws Exception {
+    public List<GatewayFlowRuleEntity> getRules(String appName) throws Exception {
         String zkPath = ZookeeperConfigUtil.getPath(appName);
         byte[] bytes = zkClient.getData().forPath(zkPath);
         if (null == bytes || bytes.length == 0) {
