@@ -14,7 +14,7 @@
 
     <properties>
         <spring.boot.version>2.0.5.RELEASE</spring.boot.version>
-        <curator.version>4.0.1</curator.version>
+        <curator.version>5.1.0</curator.version>
     </properties>
 
     <dependencies>
@@ -115,7 +115,17 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
             <version>${curator.version}</version>
-            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.6.2</version>
         </dependency>
 
         <dependency>
